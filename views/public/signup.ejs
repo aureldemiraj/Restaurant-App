@@ -1,0 +1,83 @@
+<%- include('../includes/header',{title:title}); %> <%-
+include('../includes/navigation',{isLoggdIn:isLoggedIn,fullName:''}); %>
+
+<div class="form-container-custom">
+  <div class="login-form">
+    <h1>Regjistrohu</h1>
+    <form action="/signup" method="POST" id="form">
+      <div class="form-group">
+        <label for="name">Emri</label>
+        <br />
+        <!-- <i class="fa fa-user icon"></i> -->
+        <input
+          type="text"
+          name="name"
+          id="name"
+          placeholder="Shkruaj emrin"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="surname">Mbiemri</label>
+        <br />
+        <!-- <i class="fa fa-user icon"></i> -->
+        <input
+          type="text"
+          name="surname"
+          id="surname"
+          placeholder="Shkruaj mbiemrin"
+          class="form-control"
+        />
+      </div>
+      <div class="form-group">
+        <label for="email">Email address</label>
+        <br />
+        <!-- <i class="fa fa-user icon"></i> -->
+        <input
+          type="email"
+          id="email"
+          aria-describedby="email"
+          placeholder="Shkruj email"
+          class="form-control"
+          name="email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <br />
+        <!-- <span><i class="fa fa-key icon"></i></span>  -->
+        <input
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Password"
+          name="password"
+        />
+      </div>
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <br />
+        <!-- <span><i class="fa fa-key icon"></i></span>  -->
+        <input
+          type="password"
+          class="form-control"
+          name="confirmPassword"
+          id="confirmPassword"
+          placeholder="Confirm Password"
+        />
+      </div>
+      <!-- <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" />
+        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+      </div> -->
+
+      <div class="form-group">
+        <button type="submit" class="btn btn-lg btn-dark btn-block">
+          Regjistrohu
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../includes/footer',{isLoggedIn:isLoggedIn}); %>

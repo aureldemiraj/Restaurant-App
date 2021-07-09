@@ -1,0 +1,94 @@
+<%- include('includes/header',{title:title}); %>
+  <%- include('includes/navigation',{isLoggedIn:isLoggedIn,fullName:fullName}); %>
+
+    <div class="entrance d-flex justify-content-center align-items-center flex-column">
+      <div class="title">
+        Shpejtë,shijshëm & servuar mirë
+      </div>
+      <div class="subtitle">
+        100% ushqim natyral dhe i shëndetshëm
+      </div>
+
+      <div class="see-menu-button">
+        <a href="/menu"><button>Shiko Menynë e Plotë</button></a>
+      </div>
+    </div>
+    <div class="description d-flex flex-sm-row flex-column justify-content-between flex-wrap">
+      <div class="welcome-p d-flex justify-content-center flex-column">
+        <div class="welcome">
+          <p>Mirësevini në</p>
+        </div>
+        <div class="brand">
+          <p>Food Order System</p>
+        </div>
+        <div class="d-flex flex-sm-row flex-column ">
+          <p>Një menu ditore, e gjitha e përgatitur rishtas në kuzhinën e pub-it, përfshin peshk të freskët, pite,
+            biftekë dhe specialitete ditore të kuzhinierit me çmime të pjatave kryesore që variojnë nga 11,50 £ - 19,50.
+            Ndërsa të gjitha pjatat përgatiten në kuzhinën e pijetoreve, ato janë në gjendje të plotësojnë nevojat
+            dietike, me shumicën e salcave, supave dhe lëngut të lëngjeve të gjitha të krijuara pa gluten. Fox
+            gjithashtu ofron bukë pa gluten dhe puding Yorkshire pa gluten të Dielën.</p>
+        </div>
+
+        <div class="see-menu-button">
+          <a href="/menu"><button>Shiko Menynë e Plotë</button></a>
+        </div>
+      </div>
+
+      <div class="imageholder">
+        <img
+          src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+          width="100%" height="auto" alt="">
+      </div>
+    </div>
+    <h1>Pjatat tona</h1>
+    <div class="menu-slideshow d-flex  flex-sm-row flex-column justify-content-between mx-2 align-items-center">
+      <% products.forEach(product=> { %>
+        <div class="menu-item d-flex flex-column col-md-4 m-0 justify-content-center wrap "
+          data-id="<%= product._id %>">
+          <div class="image"><img src="<%= product.url %>" width="100%" height="300px" alt=""></div>
+          <div class="menu-title-price d-flex justify-content-between">
+            <p id="menu_item_name">
+              <%= product.name %>
+            </p>
+            <p id="menu_item_price">$<%= product.price %>
+            </p>
+          </div>
+          <div>
+            <p>
+              <%= product.description %>
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-between order">
+            <div class="see-menu-button" class="orderBtn">
+
+              <% if(isLoggedIn) { %>
+                <form action="/shto" method="POST">
+                  <input type="hidden" name="id" value="<%= product._id %>">
+                  <button class="shtoNeShporte">Shto ne shporte</button>
+                </form>
+                <% } else { %>
+                  <button class="shtoNeShporte">
+                    Shto në shportë
+                  </button>
+                  <% } %>
+
+            </div>
+            <div class="see-menu-button" class="orderBtn">
+              <button>
+                <a href="<%= isLoggedIn ? '/cart' : '/login' %>">Porosit tani</a>
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+
+
+
+    </div>
+    </div>
+    <div class="showVideoDiv d-flex justify-content-center align-items-center">
+      <p>Shiko video-chatin mes userave</p>
+      <a href="/video">Kliko këtu</a>
+      <p id="remove">X</p>
+    </div>

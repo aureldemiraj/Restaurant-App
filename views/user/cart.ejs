@@ -1,0 +1,33 @@
+<%- include('../includes/header',{title:title}); %>
+  <%- include('../includes/navigation',{isLoggedIn:isLoggedIn,fullName:fullName}); %>
+
+    <h1>Shporta juaj</h1>
+    <div class="container">
+      <div class="card m-5">
+        <ul class="list-group list-group-flush">
+          <% products.forEach(product=>{ %>
+            <li class="list-group-item">
+              <div class="d-flex justify-content-between align-items-center">
+                <img src="<%= product.productId.url %>" alt="" width="100" height="100" />
+                <div>
+                  <p>
+                    <%= product.productId.name %>
+                  </p>
+                  <p>
+                    <%= product.productId.description %>
+                  </p>
+                </div>
+                <p>Sasia: <%= product.quantity %>
+                </p>
+                <p>Total: $<%= product.productId.price*product.quantity %>
+                </p>
+              </div>
+            </li>
+
+            <% }) %>
+        </ul>
+        <form action="/porosit" method="POST" class="porosit">
+          <button>Porosit</button>
+        </form>
+      </div>
+    </div>

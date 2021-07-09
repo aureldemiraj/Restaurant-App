@@ -1,0 +1,51 @@
+<%- include('includes/header',{title:title,isLoggedIn:isLoggedIn,fullName:fullName}); %>
+  <%- include('includes/navigation'); %>
+
+    <h1>Pjatat tona</h1>
+    <div
+      class="menu-slideshow d-flex  flex-sm-row flex-column justify-content-around mx-2 align-items-center flex-wrap">
+      <% products.forEach(product=> { %>
+        <div class="menu-item d-flex flex-column col-md-4 m-0 justify-content-center wrap "
+          data-id="<%= product._id %>">
+          <div class="image"><img src="<%= product.url %>" width="100%" height="300px" alt=""></div>
+          <div class="menu-title-price d-flex justify-content-between">
+            <p id="menu_item_name">
+              <%= product.name %>
+            </p>
+            <p id="menu_item_price">$<%= product.price %>
+            </p>
+          </div>
+          <div>
+            <p>
+              <%= product.description %>
+            </p>
+          </div>
+
+          <div class="d-flex justify-content-between order">
+            <div class="see-menu-button" class="orderBtn">
+
+              <% if(isLoggedIn) { %>
+                <form action="/shto" method="POST">
+                  <input type="hidden" name="id" value="<%= product._id %>">
+                  <button class="shtoNeShporte">Shto ne shporte</button>
+                </form>
+                <% } else { %>
+                  <button class="shtoNeShporte">
+                    Shto në shportë
+                  </button>
+                  <% } %>
+
+            </div>
+            <div class="see-menu-button" class="orderBtn">
+              <button>
+                <a href="<%= isLoggedIn ? '/cart' : '/login' %>">Porosit tani</a>
+
+              </button>
+            </div>
+          </div>
+        </div>
+        <% }) %>
+
+
+    </div>
+    </div>

@@ -1,0 +1,314 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Encode+Sans+SC:wght@600&display=swap');
+
+
+body {
+  background-color: #d5d5d5;
+}
+
+#myStyle {
+  /* The Modal (background) */
+}
+
+#myStyle .modal {
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: black;
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Modal Content/Box */
+  /* Black w/ opacity */
+}
+
+#myStyle .modal .modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* The Close Button */
+  /* Could be more or less, depending on screen size */
+}
+
+#myStyle .modal .modal-content .close {
+  color: #1f1f1f;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+#myStyle .modal .modal-content .close:hover,
+#myStyle .modal .modal-content .close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+#myStyle .nav-item .nav-link {
+  color: #baa774;
+}
+
+#myStyle .navbar-brand {
+  color: #1f1f1f;
+  font-family: "Encode Sans SC", cursive;
+  font-size: 2rem;
+}
+
+#myStyle .link-hover {
+  color: #baa774;
+  -webkit-transition: all 3.5s ease-in-out;
+  transition: all 3.5s ease-in-out;
+}
+
+#myStyle .link-hover:hover {
+  text-decoration: underline;
+}
+
+#myStyle .entrance {
+  height: 100vh;
+  color: #1f1f1f;
+}
+
+#myStyle .entrance .title {
+  font-size: 3rem;
+  font-family: "Encode Sans SC", cursive;
+  text-align: center;
+}
+
+#myStyle .entrance .subtitle {
+  font-size: 1.5rem;
+  color: #baa774;
+}
+
+#myStyle .see-menu-button button {
+  background-color: #baa774;
+  border: none;
+  padding: 1rem;
+  margin-top: 1rem;
+  -webkit-box-shadow: 0 20px 50px rgba(59, 43, 91, 0.7);
+          box-shadow: 0 20px 50px rgba(59, 43, 91, 0.7);
+  border-radius: 0.1rem;
+  -webkit-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+}
+
+#myStyle .see-menu-button button:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+#myStyle .description {
+  color: #1f1f1f;
+  margin: 0 1rem;
+}
+
+#myStyle .description .welcome {
+  font-size: 1.2rem;
+  margin-left: 2rem;
+  margin-bottom: 0;
+}
+
+#myStyle .description .welcome p {
+  margin: 0;
+}
+
+#myStyle .description .brand {
+  margin-bottom: 2rem;
+  font-family: "Encode Sans SC", cursive;
+  font-size: 3.5rem;
+  margin-bottom: 0;
+  color: #baa774;
+}
+
+#myStyle .description .welcome-p {
+  -webkit-box-flex: 3;
+      -ms-flex: 3;
+          flex: 3;
+  padding: 1rem;
+}
+
+#myStyle .description .imageholder {
+  margin-left: 1rem;
+  -webkit-box-flex: 2;
+      -ms-flex: 2;
+          flex: 2;
+}
+
+#myStyle h1 {
+  text-align: center;
+  margin: 3rem 0;
+  color: #1f1f1f;
+  font-family: "Encode Sans SC", cursive;
+  font-size: 3rem;
+}
+
+#myStyle .menu-slideshow .menu-item {
+  margin: 0 1rem;
+  color: #1f1f1f;
+  padding: 0.5rem;
+  height: 100%;
+}
+
+#myStyle .menu-slideshow .menu-item .see-menu-button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#myStyle .menu-slideshow .menu-item .menu-title-price {
+  margin-top: 2rem;
+}
+
+#myStyle .menu-slideshow .menu-item .menu-title-price #menu_item_price {
+  color: #474747;
+}
+
+#myStyle .form-container-custom {
+  margin: 20vh 0;
+  height: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#myStyle .form-container-custom .login-form {
+  width: 500px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: stretch;
+      -ms-flex-align: stretch;
+          align-items: stretch;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  background: white;
+  margin: 0 auto;
+  padding: 1rem;
+  margin: 1rem;
+  padding: 3rem;
+  border-radius: 10px;
+}
+
+#myStyle .form-container-custom .login-form h1 {
+  color: black;
+  font-size: 2rem;
+  margin: 0;
+}
+
+#myStyle .form-container-custom .login-form .register {
+  margin-top: 2rem;
+}
+
+#myStyle .showVideoDiv {
+  width: 100%;
+  color: white;
+  background-color: black;
+  position: fixed;
+  height: 70px;
+  font-size: 1rem;
+  z-index: 5;
+  bottom: 0;
+  visibility: hidden;
+}
+
+#myStyle .showVideoDiv a {
+  color: #baa774;
+}
+
+#myStyle .showVideoDiv * {
+  margin: 10px;
+}
+
+#myStyle .showVideoDiv #remove {
+  cursor: pointer;
+}
+
+#myStyle footer {
+  margin-top: 5vh;
+  background-color: #25282f;
+}
+
+#myStyle footer a {
+  color: #baa774;
+}
+
+#myStyle footer .row1 {
+  height: 90%;
+}
+
+#myStyle footer .row2 {
+  color: white;
+  margin-bottom: 0;
+  height: 10%;
+  background-color: #4b556d;
+}
+
+#myStyle footer .row2 p {
+  margin: 0;
+}
+
+#myStyle footer .content {
+  color: white;
+  text-align: center;
+}
+
+#myStyle footer .content h1 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.5rem;
+}
+
+#myStyle footer .link {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#myStyle .order a {
+  color: black;
+  text-decoration: none;
+}
+
+#myStyle .porosit {
+  width: 100%;
+}
+
+#myStyle .porosit button {
+  margin: 0 auto;
+  display: block;
+  width: 70%;
+}
+
+#myStyle #message-container {
+  overflow-y: scroll;
+}
+/*# sourceMappingURL=style.css.map */

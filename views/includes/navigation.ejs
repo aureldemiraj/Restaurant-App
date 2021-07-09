@@ -1,0 +1,50 @@
+<body id="myStyle">
+  <div class="container container-custom">
+    <nav class="navbar navbar-expand-lg navbar-light bg-transparent navbar-custom">
+      <a class="navbar-brand" href="/">FOS</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse ml-5" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/menu">Menu <span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/video">Video and Chat</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Contact</a>
+          </li>
+        </ul>
+        <% if(fullName!=='' ) { %>
+          <a style="color: #1f1f1f;" class="link-hover" disabled> <b>
+              <%= fullName %>
+            </b></a>
+          <% } %>
+
+            <form class="form-inline my-2 ml-5 my-lg-0">
+              <% if(isLoggedIn) { %>
+                <a class="link-hover" href="/logout"><img src="./icons/icon.png" alt="" />Log Out
+                </a>
+                <% } else { %>
+                  <a class="link-hover" href="/login"><img src="./icons/icon.png" alt="" />Log In
+                  </a>
+                  <% }%>
+
+                    <a class="ml-5 link-hover" href="/cart" id="shopping-cart"><img src="./icons/shopping-cart.svg"
+                        alt="" />
+                    </a>
+            </form>
+      </div>
+    </nav>
+  </div>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+    </div>
+  </div>
+</body>

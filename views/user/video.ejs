@@ -1,0 +1,240 @@
+<%- include('../includes/header',{title:title}); %>
+  <%- include('../includes/navigation',{isLoggedIn:isLoggedIn,fullName:fullName}); %>
+
+    <style>
+      .container {
+        color: white;
+      }
+
+      .col {
+        margin: 5px;
+      }
+
+      .buttons {
+        background-color: rgb(148, 141, 141);
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+
+      .btn-round {
+        border-radius: 50%;
+        padding: 20px;
+        margin: 5px;
+        background-color: #a04848;
+      }
+    </style>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <canvas class="chat-video" id="self-cam"></canvas>
+          <video playsinline autoplay class="chat-video d-none" id="chat-video-src"></video>
+        </div>
+      </div>
+    </div>
+    <audio style="visibility: hidden;" controls="controls" src="" id="audio" type="audio/wav "></audio>
+
+    <div class="buttons d-flex justify-content-center">
+
+
+
+      <button class="btn-round" id="mic">
+        <i class="fa fa-microphone" aria-hidden="true"></i>
+      </button>
+      <button class="btn-round" id="cam">
+        <i class="fa fa-video-camera" aria-hidden="true"></i>
+      </button>
+    </div>
+    <script src="./js/buttonChat.js"></script>
+    <script src="./js/chat.js"></script>
+    <script src="https://www.WebRTC-Experiment.com/RecordRTC.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const PING_INTERVAL = 10000;
+      const FPS = 1000 / 60; // 30fps
+      let videoRecording = false;
+      let audioRecording = false;
+      const cam = document.getElementById("cam");
+      const phone = document.getElementById("phone");
+      const mic = document.getElementById("mic");
+      const canvas = document.getElementById("self-cam");
+      const context = canvas.getContext("2d");
+      let mediaRecorder;
+      const loadSelfCam = () => {
+        if (videoRecording) return;
+
+        context.height = canvas.height;
+        context.width = canvas.width;
+
+        navigator.getUserMedia =
+          navigator.getUserMedia ||
+          navigator.webkitGetUserMedia ||
+          navigator.mozGetUserMedia ||
+          navigator.msgGetUserMedia;
+        if (navigator.getUserMedia) {
+          navigator.getUserMedia(
+            { video: true },
+            (stream) => {
+              videoRecording = true;
+              document.getElementById("chat-video-src").srcObject = stream;
+              interval = setInterval(() => {
+                if (document.getElementById("chat-video-src").srcObject !== null) {
+                  context.drawImage(
+                    document.getElementById("chat-video-src"),
+                    0,
+                    0,
+                    context.width,
+                    context.height
+                  );
+                }
+
+                try {
+                  socket.emit("image-upload", canvas.toDataURL("image/webp"));
+                } catch (e) {
+                  console.log(e);
+                }
+              }, FPS);
+            },
+            (err) => console.error(err)
+          );
+        }
+      };
+
+      function stopStreamedVideo(videoElem) {
+        const stream = videoElem.srcObject;
+        const tracks = stream.getTracks();
+
+        tracks.forEach(function (track) {
+          track.stop();
+        });
+
+        videoElem.srcObject = null;
+        console.log(interval);
+
+        clearInterval(interval);
+      }
+      cam.addEventListener("click", function (e) {
+        if (!videoRecording) {
+          this.style.backgroundColor = "white";
+          loadSelfCam();
+        } else {
+          this.style.backgroundColor = "#a04848";
+          videoRecording = false;
+          stopStreamedVideo(document.getElementById("chat-video-src"));
+
+          socket.emit("no-video-upload", "<%= fullName %>");
+        }
+      });
+      //**blob to dataURL**
+      function blobToDataURL(blob) {
+        var a = new FileReader();
+
+        a.addEventListener("load", function () {
+          // convert image file to base64 string
+          socket.emit('audio-upload', a.result);
+
+        }, false);
+
+        a.readAsDataURL(blob);
+      }
+      mic.addEventListener("click", function (e) {
+        if (!audioRecording) {
+          this.style.backgroundColor = "white";
+          navigator.getUserMedia(
+            {
+              audio: true,
+            },
+            function (stream) {
+              audioRecording = true;
+              mediaRecorder = new MediaRecorder(stream);
+
+              mediaRecorder.start();
+              let chunks = [];
+
+              mediaRecorder.ondataavailable = function (e) {
+                chunks.push(e.data);
+              }
+              mediaRecorder.onstop = function (e) {
+                console.log("recorder stopped");
+
+                const blob = new Blob(chunks, { 'type': 'audio/ogg; codecs=opus' });
+                chunks = [];
+                const audioURL = window.URL.createObjectURL(blob);
+                audio.src = audioURL;
+                blobToDataURL(blob);
+              }
+
+
+            },
+            function (error) {
+              console.error(JSON.stringify(error));
+            }
+          );
+        } else {
+          mediaRecorder.stop();
+          this.style.backgroundColor = "#a04848";
+          audioRecording = false;
+          document.getElementById("audio").srcObject = null;
+        }
+
+      });
+
+      const socket = io("/video");
+
+      socket.emit("hi", "<%= fullName %>");
+
+      socket.on("hi", ({ uid, letter }) => {
+        document.getElementById(
+          `img-${uid}`
+        ).src = `https://eu.ui-avatars.com/api/?length=1&size=200&name=${letter}`;
+      });
+      socket.on("new-user", (data) => {
+        $(".row").append(`
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <img  alt="ok" id="img-${data}"/>
+    </div>`);
+      });
+      socket.on("video", ({ uid, img }) => {
+        if (document.getElementById(`img-${uid}`) !== null)
+          document.getElementById(`img-${uid}`).setAttribute("src", img);
+      });
+
+      socket.on("no-video-upload", ({ uid, letter }) => {
+        console.log(letter);
+
+        document.getElementById(
+          `img-${uid}`
+        ).src = `https://eu.ui-avatars.com/api/?length=1&size=200&name=${letter}`;
+        console.log(document.getElementById(`img-${uid}`));
+      });
+
+      socket.on("client-disconnect", (uid) => {
+        console.log($(`img-${uid}`).parent());
+        document
+          .getElementById(`img-${uid}`)
+          .parentNode.parentNode.removeChild(
+            document.getElementById(`img-${uid}`).parentNode
+          );
+        console.log(uid);
+      });
+      socket.on("hello", (uids) => {
+        console.log(uids);
+        if (uids.length == 0) return;
+        uids.forEach((uid) => {
+          $(".row").append(`
+    <div class="col-sm-12 col-md-6 col-lg-4">
+      <img  alt="ok" id="img-${uid}"/>
+    </div>`);
+        });
+      });
+
+      socket.on("audio", (blob) => {
+        console.log(blob);
+
+        document
+          .getElementById("audio")
+          .setAttribute("src", blob);
+        document.getElementById("audio").play();
+      });
+    </script>
+    <%- include('../includes/buttonChat'); %>
