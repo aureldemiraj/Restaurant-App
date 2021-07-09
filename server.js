@@ -20,8 +20,7 @@ const UID = require("uuid").v4;
 require("dotenv").config();
 // constants
 const PORT = process.env.PORT || 3000;
-const REMOTE_DB_URL = `mongodb+srv://${process.env.DATABASE_HOST}:${process.env.DATABASE_PASSWORD}@cluster0.rn2i1.mongodb.net/${process.env.DATABASE_NAME}?retryWrites=true&w=majority
-`;
+const REMOTE_DB_URL = `mongodb+srv://dist:erestaurantapp@cluster0.fyogr.mongodb.net/Cluster0?retryWrites=true&w=majority`;
 //root path i faqes
 
 // konfigurime te aplikactionit
@@ -50,7 +49,8 @@ app.use(express.json());
 mongoose.connect(REMOTE_DB_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-});
+}).then(() => console.log('lidhja me db u krye me sukses')).catch((e) => console.log(e));
+
 
 app.use(userRouter);
 app.use("/admin", adminRouter);
